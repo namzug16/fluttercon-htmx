@@ -3,7 +3,7 @@ import "dart:io";
 
 import "package:absurd_starter/config.dart";
 import "package:absurd_starter/router.dart";
-import "package:absurd_starter/src/handlers/page_handlers.dart";
+import "package:absurd_starter/src/handlers/shared/developer_hot_takes_state.dart";
 import "package:relic/relic.dart";
 
 Future<void> main() async {
