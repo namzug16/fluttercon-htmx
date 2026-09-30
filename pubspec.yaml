@@ -1,0 +1,36 @@
+name: absurd_starter
+description: A Dart server starter using Relic, HTMX, hyperscript, Tailwind, Basecoat, and htmleez.
+publish_to: none
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  archive: ^4.0.7 # Used in order to generate the Lucide icons
+
+  hotreloader: ^4.4.0
+  htmleez: ^1.0.0
+  relic:
+    git:
+      url: https://github.com/namzug16/relic.git
+      ref: feat/form_and_multipart
+      path: packages/relic
+
+dependency_overrides:
+  relic_core:
+    git:
+      url: https://github.com/namzug16/relic.git
+      ref: feat/form_and_multipart
+      path: packages/relic_core
+  relic_io:
+    git:
+      url: https://github.com/namzug16/relic.git
+      ref: feat/form_and_multipart
+      path: packages/relic_io
+
+dev_dependencies:
+  http: ^1.2.2
+  lints: ^6.0.0
+  test: ^1.25.6
