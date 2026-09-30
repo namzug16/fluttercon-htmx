@@ -40,32 +40,29 @@ HTML hotTakesApp(HotTakesSnapshot snapshot, {String takeValue = "", String? take
   ]),
 ]);
 
-HTML _hotTakesHeader(HotTakesStats stats) => tags.header([
-  $("class")("overflow-hidden rounded-3xl border bg-card p-5 shadow-sm sm:p-6"),
-  div([
-    $("class")("flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"),
+HTML _hotTakesHeader(HotTakesStats stats) => div([
+  $("class")("card overflow-hidden"),
+  tags.header([
     div([
-      $("class")("space-y-3"),
-      a([
-        $("href")("/"),
-        $("class")("inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"),
-        "← Back to examples".t,
+      $("class")("flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between"),
+      div([
+        $("class")("space-y-3"),
+        h1([
+          $("class")("max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl"),
+          "Developer Hot Takes".t,
+        ]),
+        p([
+          $("class")("max-w-2xl text-base leading-7 text-muted-foreground text-pretty"),
+          "Post a terrible opinion, vote on the spicy ones, and watch HTMX update several parts of the page from server rendered Dart.".t,
+        ]),
       ]),
-      h1([
-        $("class")("max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl"),
-        "Developer Hot Takes".t,
+      button([
+        $("type")("button"),
+        $("class")("btn w-full bg-orange-600 text-white hover:bg-orange-700 sm:w-auto dark:bg-orange-500 dark:hover:bg-orange-600"),
+        $("onclick")("document.getElementById('new-take-dialog').showModal()"),
+        Lucide.messageSquarePlus([$("data-icon")("inline-start")]),
+        "Add a take".t,
       ]),
-      p([
-        $("class")("max-w-2xl text-base leading-7 text-muted-foreground text-pretty"),
-        "Post a terrible opinion, vote on the spicy ones, and watch HTMX update several parts of the page from server rendered Dart.".t,
-      ]),
-    ]),
-    button([
-      $("type")("button"),
-      $("class")("btn w-full bg-orange-600 text-white hover:bg-orange-700 sm:w-auto dark:bg-orange-500 dark:hover:bg-orange-600"),
-      $("onclick")("document.getElementById('new-take-dialog').showModal()"),
-      Lucide.messageSquarePlus([$("data-icon")("inline-start")]),
-      "Add a take".t,
     ]),
   ]),
 ]);
@@ -75,41 +72,46 @@ HTML takesListFragment(List<Take> takes) => div([
   $("class")("space-y-3"),
   if (takes.isEmpty)
     div([
-      $("class")("rounded-2xl border border-dashed bg-card p-6 text-center text-sm text-muted-foreground"),
-      "No takes yet. This is suspiciously reasonable.".t,
+      $("class")("card border-dashed"),
+      section([
+        $("class")("text-center text-sm text-muted-foreground"),
+        "No takes yet. This is suspiciously reasonable.".t,
+      ]),
     ])
   else
     for (final take in takes) takeCard(take),
 ]);
 
-HTML takeCard(Take take) => article([
+HTML takeCard(Take take) => div([
   $("id")("take-${take.id}"),
-  $("class")("relative overflow-hidden rounded-2xl border bg-card p-4 shadow-sm transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:shadow-md"),
-  div([
-    $("class")("flex gap-3"),
+  $("class")("card relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-0.5 hover:shadow-md"),
+  section([
     div([
-      $("class")("button-group"),
-      $("role")("group"),
-      $("aria-label")("Text alignment"),
-      _voteButton(take, delta: 1),
+      $("class")("flex flex-col gap-4 sm:flex-row sm:gap-3"),
       div([
-        $("class")("btn"),
-        $("data-variant")("outline"),
-        $("disabled")(),
-        span([
-          $("class")("text-emerald-800"),
-          "+${take.upvotes}".t,
+        $("class")("button-group w-full sm:w-auto [&>*]:flex-1 sm:[&>*]:flex-none"),
+        $("role")("group"),
+        $("aria-label")("Vote on this take"),
+        _voteButton(take, delta: 1),
+        div([
+          $("class")("btn"),
+          $("data-variant")("outline"),
+          $("disabled")(),
+          span([
+            $("class")("text-emerald-800"),
+            "+${take.upvotes}".t,
+          ]),
+          span([
+            $("class")("text-rose-800"),
+            "-${take.downvotes}".t,
+          ]),
         ]),
-        span([
-          $("class")("text-rose-800"),
-          "-${take.downvotes}".t,
-        ]),
+        _voteButton(take, delta: -1),
       ]),
-      _voteButton(take, delta: -1),
-    ]),
-    div([
-      $("class")("min-w-0 flex-1 py-1"),
-      h3([$("class")("text-lg font-semibold leading-7 text-pretty"), take.text.t]),
+      div([
+        $("class")("min-w-0 flex-1 py-1"),
+        h3([$("class")("text-base font-semibold leading-7 text-pretty sm:text-lg"), take.text.t]),
+      ]),
     ]),
   ]),
 ]);
@@ -129,12 +131,16 @@ HTML _voteButton(Take take, {required int delta}) => form([
   ]),
 ]);
 
-HTML statsPanelFragment(HotTakesStats stats) => section([
+HTML statsPanelFragment(HotTakesStats stats) => div([
   $("id")("hot-takes-stats"),
-  $("class")("grid grid-cols-3 gap-2 rounded-2xl border bg-card p-3 shadow-sm"),
-  _statItem(Lucide.vote, stats.totalVotes.toString(), "votes cast", "bg-orange-50 text-orange-950 dark:bg-orange-950 dark:text-orange-50"),
-  _statItem(Lucide.users, stats.activeVisitors.toString(), "live now", "bg-sky-50 text-sky-950 dark:bg-sky-950 dark:text-sky-50"),
-  _statItem(Lucide.activity, stats.totalVisitors.toString(), "visited", "bg-emerald-50 text-emerald-950 dark:bg-emerald-950 dark:text-emerald-50"),
+  $("class")("card"),
+  $("data-size")("sm"),
+  section([
+    $("class")("grid grid-cols-3 gap-2"),
+    _statItem(Lucide.vote, stats.totalVotes.toString(), "votes cast", "bg-orange-50 text-orange-950 dark:bg-orange-950 dark:text-orange-50"),
+    _statItem(Lucide.users, stats.activeVisitors.toString(), "live now", "bg-sky-50 text-sky-950 dark:bg-sky-950 dark:text-sky-50"),
+    _statItem(Lucide.activity, stats.totalVisitors.toString(), "visited", "bg-emerald-50 text-emerald-950 dark:bg-emerald-950 dark:text-emerald-50"),
+  ]),
 ]);
 
 HTML _statItem(HTML Function([List<HTML>]) icon, String value, String label, String classes) => div([
