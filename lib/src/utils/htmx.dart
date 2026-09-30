@@ -34,5 +34,5 @@ Response htmlFragments(List<HTML> fragments, {int status = HttpStatus.ok, Encodi
 
 Response htmlFragmentsOob(List<HTML> fragments, {int status = HttpStatus.ok, Encoding enc = utf8}) => Response(
   status,
-  body: Body.fromString(fragments.map((fragment) => fragment.add($("hx-swap-oob")("true"))).toList().toHtml(), encoding: enc, mimeType: MimeType.html),
+  body: Body.fromString(fragments.map((fragment) => fragment.add($("hx-swap-oob")("outerHTML transition:true"))).toList().toHtml(), encoding: enc, mimeType: MimeType.html),
 );

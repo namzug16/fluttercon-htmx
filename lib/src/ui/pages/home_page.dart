@@ -33,13 +33,19 @@ HTML pageHome() => primaryLayout(
             Lucide.externalLink([$("class")("size-4")]),
           ]),
           div([
-            $("class")("grid gap-3 pt-3 sm:grid-cols-3"),
+            $("class")("grid gap-3 pt-3 sm:grid-cols-4"),
             a([
               $("href")("/user-example"),
               $("class")("btn w-full"),
               $("data-variant")("outline"),
               Lucide.users([$("data-icon")("inline-start")]),
               "User example".t,
+            ]),
+            a([
+              $("href")("/oob-swap-example"),
+              $("class")("btn w-full"),
+              Lucide.orbit([$("data-icon")("inline-start")]),
+              "OOB swap".t,
             ]),
             a([
               $("href")("/developer-hot-takes"),

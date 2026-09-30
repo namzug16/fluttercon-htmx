@@ -7,6 +7,7 @@ import "package:absurd_starter/src/hot_takes/hot_takes_store.dart";
 import "package:absurd_starter/src/hot_takes/hot_takes_websocket_hub.dart";
 import "package:absurd_starter/src/ui/pages/developer_hot_takes_page.dart";
 import "package:absurd_starter/src/ui/pages/home_page.dart";
+import "package:absurd_starter/src/ui/pages/oob_swap_example_page.dart";
 import "package:absurd_starter/src/ui/pages/ui_page.dart";
 import "package:absurd_starter/src/ui/pages/user_example_page.dart";
 import "package:absurd_starter/src/utils/htmx.dart";
@@ -25,6 +26,8 @@ Response handleHomePage(Request request) => htmlPage(pageHome());
 Response handleUiPage(Request request) => htmlPage(pageUi());
 
 Response handleUserExamplePage(Request request) => htmlPage(pageUserExample());
+
+Response handleOobSwapExamplePage(Request request) => htmlPage(pageOobSwapExample());
 
 Response handleDeveloperHotTakesPage(Request request) {
   final (:sessionId, :isNew) = _visitorSession(request);
@@ -146,6 +149,22 @@ Future<Response> handleRestoreUserExample(Request request) async {
     userCardFragment(),
   ]);
 }
+
+Future<Response> handleOobSwapTickets(Request request) async {
+  await Future<void>.delayed(const Duration(milliseconds: 650));
+
+  final form = await request.urlEncodedForm();
+  final current = SupportQueueState(
+    open: _intField(form, "open", initialSupportQueueState.open),
+    urgent: _intField(form, "urgent", initialSupportQueueState.urgent),
+    closed: _intField(form, "closed", initialSupportQueueState.closed),
+    seed: _intField(form, "seed", initialSupportQueueState.seed),
+  );
+
+  return htmlFragments(supportQueueOobFragments(nextSupportQueueState(current)));
+}
+
+int _intField(UrlEncodedFormData form, String name, int fallback) => int.tryParse(form.fields(StringFormField(name)) ?? "") ?? fallback;
 
 Response handleHealth(Request request) => Response.ok(body: Body.fromString("ok"));
 
