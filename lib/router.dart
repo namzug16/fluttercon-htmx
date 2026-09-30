@@ -7,6 +7,7 @@ import "package:relic/relic.dart";
 enum Pages {
   home("/"),
   ui("/ui"),
+  userExample("/user-example"),
   health("/health");
 
   final String path;
@@ -26,7 +27,10 @@ void router(RelicApp app) {
       ).asHandler,
     )
     ..get(Pages.home.path, handleHomePage)
+    ..get(Pages.userExample.path, handleUserExamplePage)
     ..get(Pages.health.path, handleHealth)
+    ..delete("/users/42", handleDeleteUserExample)
+    ..get("/users/42", handleRestoreUserExample)
     ..post("/api/counter/increment", handleCounterIncrement);
 
   if (Config.dev) {
