@@ -12,6 +12,8 @@ dependencies:
 
   hotreloader: ^4.4.0
   htmleez: ^1.0.0
+  sqlite3: ^3.2.0
+  web_socket: ^1.0.1
   relic:
     git:
       url: https://github.com/serverpod/relic.git

@@ -23,7 +23,7 @@ void main() {
     final response = await get(Uri.parse("$host/"));
     expect(response.statusCode, 200);
     expect(response.headers["content-type"], contains("text/html"));
-    expect(response.body, contains("Absurd Starter"));
+    expect(response.body, contains("Full Stack Dart with HTMX"));
   });
 
   test("health endpoint returns ok", () async {

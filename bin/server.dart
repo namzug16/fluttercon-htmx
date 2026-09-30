@@ -4,6 +4,7 @@ import "dart:io";
 
 import "package:absurd_starter/config.dart";
 import "package:absurd_starter/router.dart";
+import "package:absurd_starter/src/handlers/page_handlers.dart";
 import "package:hotreloader/hotreloader.dart";
 import "package:relic/relic.dart";
 
@@ -80,6 +81,8 @@ class ServerRuntime {
 
   Future<void> close({required bool force}) async {
     await liveReload.close();
+    hotTakesStore.close();
+    await hotTakesHub.close();
     await app.close();
   }
 }

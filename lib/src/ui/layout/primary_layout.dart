@@ -33,6 +33,7 @@ HTML primaryLayout(HTML bodyContent, {PageSeo seo = defaultSeo}) => html([
       $("integrity")("sha384-BvJpBiO8Kh31EqtJe5DRIeWrHWnCGkwytKs9NKFi86Hhw96dEqdEMzZDeK9iEGTc"),
       $("crossorigin")("anonymous"),
     ]),
+    script([$("src")("https://cdn.jsdelivr.net/npm/htmx.org@4.0.0/dist/ext/hx-ws.min.js")]),
     script([$("src")("/basecoat.all.min.js")]),
     script([$("src")("/index.js")]),
     if (Config.dev)

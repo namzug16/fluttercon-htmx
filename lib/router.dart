@@ -8,6 +8,7 @@ enum Pages {
   home("/"),
   ui("/ui"),
   userExample("/user-example"),
+  developerHotTakes("/developer-hot-takes"),
   health("/health");
 
   final String path;
@@ -28,6 +29,8 @@ void router(RelicApp app) {
     )
     ..get(Pages.home.path, handleHomePage)
     ..get(Pages.userExample.path, handleUserExamplePage)
+    ..get(Pages.developerHotTakes.path, handleDeveloperHotTakesPage)
+    ..get("${Pages.developerHotTakes.path}/ws", handleDeveloperHotTakesSocket)
     ..get(Pages.health.path, handleHealth)
     ..delete("/users/42", handleDeleteUserExample)
     ..get("/users/42", handleRestoreUserExample)

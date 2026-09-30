@@ -11,8 +11,6 @@
 ## Verification Commands
 
 - Analyze: `dart analyze`
-- Tests: `dart test`
-- Single test file: `dart test test/server_test.dart`
 
 ## Architecture Map
 
