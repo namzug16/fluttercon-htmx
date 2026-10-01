@@ -33,13 +33,17 @@ HTML pageHome() => primaryLayout(
             Lucide.externalLink([$("class")("size-4")]),
           ]),
           div([
-            $("class")("grid gap-3 pt-3 sm:grid-cols-4"),
+            $("class")("grid gap-3 pt-3"),
             a([
               $("href")("/user-example"),
               $("class")("btn w-full"),
-              $("data-variant")("outline"),
               Lucide.users([$("data-icon")("inline-start")]),
-              "User example".t,
+              "Delete User".t,
+            ]),
+            a([
+              $("href")("/"),
+              $("class")("btn w-full"),
+              "Submit Form".t,
             ]),
             a([
               $("href")("/oob-swap-example"),
@@ -51,7 +55,7 @@ HTML pageHome() => primaryLayout(
               $("href")("/developer-hot-takes"),
               $("class")("btn w-full"),
               Lucide.flame([$("data-icon")("inline-start")]),
-              "Developer Hot Takes".t,
+              "Websocket - Developer Hot Takes".t,
             ]),
             a([
               $("href")("/ui"),
