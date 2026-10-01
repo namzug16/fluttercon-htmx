@@ -70,7 +70,8 @@ HTML temporaryDialog({
     $classes(["dialog", ?dialogExtraClasses]),
     $("aria-labelledby")("$id-title"),
     if (hasDescription) $("aria-describedby")("$id-description"),
-    raw$("_")("init call me.showModal() end on close remove me"),
+    $("hx-on:load")("if (!this.open) this.showModal()"),
+    $("hx-on:close")("this.remove()"),
     if (closeOnOverlayClick) $("onclick")("if (event.target === this) this.close()"),
     ...?dialogAttrs,
     div([

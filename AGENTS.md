@@ -20,7 +20,7 @@
 - Layout/assets: `lib/src/ui/layout/primary_layout.dart`
 - Basecoat Dart component helpers: `lib/src/ui/basecoat/`
 - HTMX helpers: `lib/src/utils/htmx.dart`
-- hyperscript helpers: `lib/src/ui/components/hyperscript.dart`
+- hx-live/HTMX event helpers: `lib/src/ui/components/htmx_events.dart`
 - Lucide generator: `bin/generate_lucide.dart`
 
 ## Project Conventions

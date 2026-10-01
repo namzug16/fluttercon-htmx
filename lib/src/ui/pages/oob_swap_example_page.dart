@@ -1,6 +1,6 @@
 import "dart:convert";
 
-import "package:absurd_starter/src/ui/components/hyperscript.dart";
+import "package:absurd_starter/src/ui/components/htmx_events.dart";
 import "package:absurd_starter/src/ui/layout/primary_layout.dart";
 import "package:absurd_starter/src/ui/lucide.dart";
 import "package:htmleez/htmleez.dart";
@@ -189,7 +189,7 @@ HTML newTicketCommandFragment(SupportQueueState state) => form([
   $("hx-post")("/oob-swap-example/tickets"),
   $("hx-swap")("none"),
   $("hx-vals")(state.hxVals),
-  $_disableFieldsetsOnHtmxRequest(),
+  ...disableFieldsetsOnHtmxRequest(),
   fieldset([
     $("class")("grid"),
     button([

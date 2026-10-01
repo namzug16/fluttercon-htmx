@@ -1,4 +1,4 @@
-import "package:absurd_starter/src/ui/components/hyperscript.dart";
+import "package:absurd_starter/src/ui/components/htmx_events.dart";
 import "package:absurd_starter/src/ui/layout/primary_layout.dart";
 import "package:absurd_starter/src/ui/lucide.dart";
 import "package:htmleez/htmleez.dart";
@@ -38,7 +38,7 @@ HTML userCardFragment() => article([
   div([
     $("class")("mt-5 flex justify-end"),
     form([
-      $_disableFieldsetsOnHtmxRequest(),
+      ...disableFieldsetsOnHtmxRequest(),
       fieldset([
         button([
           $("type")("button"),
@@ -62,14 +62,14 @@ HTML deletedUserFragment() => div([
   $("class")("space-y-4"),
   div([
     $("class")("space-y-4 rounded-2xl border border-destructive/30 bg-destructive/10 p-5 text-sm font-medium text-destructive"),
-    $("hx-on")("load delay:3s -> this.remove();"),
+    $("hx-on:load")("setTimeout(() => this.remove(), 3000)"),
     "User deleted".t,
     div([
       $("class")("h-2 w-72 max-w-full overflow-hidden rounded-full"),
       div([
         $("id")("progress"),
         $("class")("h-full w-full  bg-zinc-800 transition-[width] duration-[3000ms] ease-linear"),
-        raw$("_")("init wait 20ms then set my.style.width to '0%'"),
+        $("hx-on:load")("setTimeout(() => this.style.width = '0%', 20)"),
       ]),
     ]),
   ]),
@@ -78,7 +78,7 @@ HTML deletedUserFragment() => div([
     $("hx-get")("/users/42"),
     $("hx-target")("#user-42"),
     $("hx-swap")("outerHTML"),
-    $_disableFieldsetsOnHtmxRequest(),
+    ...disableFieldsetsOnHtmxRequest(),
     fieldset([
       $("class")("grid"),
       button([
