@@ -20,10 +20,6 @@ HTML pageHome() => primaryLayout(
             $("class")("text-4xl font-bold tracking-tight text-balance sm:text-5xl"),
             "Full Stack Dart with HTMX".t,
           ]),
-          p([
-            $("class")("max-w-2xl text-base leading-7 text-muted-foreground text-pretty"),
-            "This small app is used as an example for a talk about server rendered Dart, HTMX fragments, SQLite, and realtime hypermedia updates.".t,
-          ]),
           a([
             $("href")("https://github.com/namzug16/fluttercon-htmx"),
             $("target")("_blank"),

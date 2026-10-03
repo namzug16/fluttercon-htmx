@@ -90,7 +90,7 @@ List<HTML> supportQueueOobFragments(SupportQueueState state) {
     hxPartial([
       $("hx-target")("#ticket-rows"),
       $("hx-swap")("beforeend show:top transition:true"),
-      _ticketRow(newestTicket),
+      _ticketRow(newestTicket, isNew: true),
     ]),
     ticketsTotalBadgeFragment(state).add($("hx-swap-oob")("textContent transition:true")),
     newTicketCommandFragment(state).add($("hx-swap-oob")("outerHTML transition:true")),
@@ -176,8 +176,17 @@ HTML ticketsTotalBadgeFragment(SupportQueueState state) => span([
   "${state.total} total".t,
 ]);
 
-HTML _ticketRow(SupportTicket ticket) => tr([
-  td([$("class")("font-mono"), ticket.id.t]),
+HTML _ticketRow(SupportTicket ticket, {bool isNew = false}) => tr([
+  td([
+    $("class")("inline-flex gap-1 items-center font-mono"),
+    if (isNew) span([
+      $("class")("relative flex size-2"),
+      span([$("class")("absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75")]),
+      span([$("class")("relative inline-flex size-2 rounded-full bg-green-500")]),
+      $("hx-on")("load delay:3s -> this.remove();"),
+    ]),
+    ticket.id.t,
+  ]),
   td([ticket.customer.t]),
   td([$("class")("max-w-64 truncate"), ticket.subject.t]),
   td([_priorityBadge(ticket.priority)]),
