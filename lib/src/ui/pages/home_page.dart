@@ -41,11 +41,6 @@ HTML pageHome() => primaryLayout(
               "Delete User".t,
             ]),
             a([
-              $("href")("/"),
-              $("class")("btn w-full"),
-              "Submit Form".t,
-            ]),
-            a([
               $("href")("/oob-swap-example"),
               $("class")("btn w-full"),
               Lucide.orbit([$("data-icon")("inline-start")]),

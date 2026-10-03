@@ -66,7 +66,7 @@ HTML pageOobSwapExample() => primaryLayout(
       newTicketCommandFragment(initialSupportQueueState),
       section([
         $("class")("grid gap-4 lg:grid-cols-[1fr_22rem]"),
-        div([$("class")("space-y-4"), ticketsTableFragment(initialSupportQueueState)]),
+        div([$("class")("min-w-0 space-y-4"), ticketsTableFragment(initialSupportQueueState)]),
         div([
           $("class")("space-y-4"),
           queueHealthFragment(initialSupportQueueState),
@@ -86,9 +86,10 @@ List<HTML> supportQueueOobFragments(SupportQueueState state) {
 
   return [
     supportStatsFragment(state).add($("hx-swap-oob")("outerHTML transition:true")),
+    //NOTE: hx-partial -> explicit control over targeting and swap strategy
     hxPartial([
       $("hx-target")("#ticket-rows"),
-      $("hx-swap")("beforeend transition:true"),
+      $("hx-swap")("beforeend show:top transition:true"),
       _ticketRow(newestTicket),
     ]),
     ticketsTotalBadgeFragment(state).add($("hx-swap-oob")("textContent transition:true")),
@@ -132,7 +133,7 @@ HTML _statCard(HTML Function([List<HTML>]) icon, String title, String value, Str
 
 HTML ticketsTableFragment(SupportQueueState state) => div([
   $("id")("tickets-table"),
-  $("class")("card"),
+  $("class")("card min-w-0"),
   tags.header([
     div([
       h2(["Recent tickets".t]),
@@ -145,10 +146,10 @@ HTML ticketsTableFragment(SupportQueueState state) => div([
   ]),
   section([
     div([
-      $("class")("table-container"),
+      $("class")("table-container w-full max-w-full overflow-x-auto"),
       table([
         $("id")("support-tickets"),
-        $("class")("table"),
+        $("class")("table min-w-3xl"),
         thead([
           tr([
             th(["Ticket".t]),
