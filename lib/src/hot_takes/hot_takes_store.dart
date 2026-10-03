@@ -43,9 +43,14 @@ class HotTakesSnapshot {
 }
 
 class HotTakesStore {
-  HotTakesStore({String path = "data/hot_takes.sqlite"}) {
+  HotTakesStore({String path = "data/hot_takes.sqlite", bool resetOnStart = true}) {
     final file = File(path);
     file.parent.createSync(recursive: true);
+    if (resetOnStart) {
+      _deleteIfExists(path);
+      _deleteIfExists("$path-wal");
+      _deleteIfExists("$path-shm");
+    }
     _db = sqlite3.open(path);
     _migrate();
     _seed();
@@ -202,11 +207,11 @@ class HotTakesStore {
     if (count > 0) return;
 
     const takes = [
-      "YAML is a programming language.",
-      "You do not need Kubernetes.",
-      "Types are just tests that run before production.",
-      "The best frontend framework is a good form action.",
-      "A monolith is a microservice with better boundaries.",
+      "Swift is better than Dart.",
+      "No tests >>> Unit tests",
+      "AI Slop >>>>>>>> Clean Architecture",
+      "Any state management solution is better than BLoC.",
+      "Flutter is dead.",
     ];
 
     for (final take in takes) {
@@ -222,4 +227,9 @@ class HotTakesStore {
     downvotes: row["downvotes"] as int,
     createdAt: DateTime.parse(row["created_at"] as String),
   );
+
+  void _deleteIfExists(String path) {
+    final file = File(path);
+    if (file.existsSync()) file.deleteSync();
+  }
 }

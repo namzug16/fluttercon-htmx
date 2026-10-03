@@ -122,7 +122,15 @@ String? _validateTake(String take) {
   if (take.isEmpty) return "Write the take before posting.";
   if (take.length < 8) return "Make the take at least 8 characters.";
   if (take.length > 180) return "Keep the take under 180 characters.";
+  if (!_isFlutterOrDartTake(take)) return "Keep it about Flutter or Dart.";
   return null;
+}
+
+bool _isFlutterOrDartTake(String take) {
+  return RegExp(
+    r"\b(flutter|dart|swift|widget|widgets|statefulwidget|statelesswidget|buildcontext|pubspec|bloc|riverpod|provider|hot reload|hot restart)\b",
+    caseSensitive: false,
+  ).hasMatch(take);
 }
 
 int _voteDelta(String? raw) {

@@ -18,8 +18,8 @@ HTML pageDeveloperHotTakes(HotTakesSnapshot snapshot) => primaryLayout(
     ]),
   ]),
   seo: const PageSeo(
-    title: "Developer Hot Takes | Full Stack Dart with HTMX",
-    description: "A realtime HTMX and SQLite demo for a Full Stack Dart with HTMX talk.",
+    title: "Flutter & Dart Hot Takes | Full Stack Dart with HTMX",
+    description: "A realtime HTMX and SQLite demo for Flutter and Dart conference hot takes.",
   ),
 );
 
@@ -49,11 +49,11 @@ HTML _hotTakesHeader(HotTakesStats stats) => div([
         $("class")("space-y-3"),
         h1([
           $("class")("max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl"),
-          "Developer Hot Takes".t,
+          "Flutter & Dart Hot Takes".t,
         ]),
         p([
           $("class")("max-w-2xl text-base leading-7 text-muted-foreground text-pretty"),
-          "Post a terrible opinion, vote on the spicy ones, and watch HTMX update several parts of the page from server rendered Dart.".t,
+          "Post a spicy Flutter or Dart opinion, vote on the questionable ones, and watch HTMX update several parts of the page from server rendered Dart.".t,
         ]),
       ]),
       button([
@@ -159,8 +159,8 @@ HTML newTakeDialog({String value = "", String? error}) => tags.dialog([
   div([
     $("class")("sm:max-w-lg"),
     tags.header([
-      h2([$("id")("new-take-dialog-title"), "Add a developer hot take".t]),
-      p([$("id")("new-take-dialog-description"), "Keep it short, spicy, and safe for a conference room.".t]),
+      h2([$("id")("new-take-dialog-title"), "Add a Flutter or Dart hot take".t]),
+      p([$("id")("new-take-dialog-description"), "Keep it short, spicy, on-topic, and safe for a conference room.".t]),
     ]),
     section([
       takeDialogContent(value: value, error: error),
@@ -192,7 +192,7 @@ HTML takeDialogContent({String value = "", String? error}) => div([
         $("class")("textarea min-h-28"),
         $("maxlength")("180"),
         $("required")(),
-        $("placeholder")("Write a terrible opinion..."),
+        $("placeholder")("Write a terrible Flutter or Dart opinion..."),
         if (error != null) $("aria-invalid")("true"),
         if (error != null) $("aria-describedby")("take-error"),
         value.t,
