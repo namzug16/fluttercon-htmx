@@ -1,12 +1,13 @@
 import "dart:io";
 
-import "package:absurd_starter/config.dart";
 import "package:absurd_starter/src/handlers/page_handlers.dart";
+import "package:absurd_starter/src/handlers/pages/template_page_handler.dart";
 import "package:relic/relic.dart";
 
 enum Pages {
   home("/"),
   ui("/ui"),
+  template("/template"),
   userExample("/user-example"),
   oobSwapExample("/oob-swap-example"),
   developerHotTakes("/developer-hot-takes"),
@@ -29,6 +30,8 @@ void router(RelicApp app) {
       ).asHandler,
     )
     ..get(Pages.home.path, handleHomePage)
+    ..get(Pages.ui.path, handleUiPage)
+    ..get(Pages.template.path, handleTemplatePage)
     ..get(Pages.userExample.path, handleUserExamplePage)
     ..get(Pages.oobSwapExample.path, handleOobSwapExamplePage)
     ..get(Pages.developerHotTakes.path, handleDeveloperHotTakesPage)
@@ -38,8 +41,4 @@ void router(RelicApp app) {
     ..get("/users/42", handleRestoreUserExample)
     ..post("${Pages.oobSwapExample.path}/tickets", handleOobSwapTickets)
     ..post("/api/counter/increment", handleCounterIncrement);
-
-  if (Config.dev) {
-    app.get(Pages.ui.path, handleUiPage);
-  }
 }

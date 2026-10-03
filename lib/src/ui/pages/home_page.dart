@@ -53,6 +53,13 @@ HTML pageHome() => primaryLayout(
               "Websocket - Developer Hot Takes".t,
             ]),
             a([
+              $("href")("/template"),
+              $("class")("btn w-full"),
+              $("data-variant")("outline"),
+              Lucide.bookDashed([$("data-icon")("inline-start")]),
+              "Absurd Starter".t,
+            ]),
+            a([
               $("href")("/ui"),
               $("class")("btn w-full"),
               $("data-variant")("outline"),
